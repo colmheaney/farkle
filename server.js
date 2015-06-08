@@ -20,6 +20,7 @@ io.on('connection', function(socket){
 
     	// Handle 'message' messages
         socket.on('message', function (message) {
+                io.emit('message', message);
         });
 
         socket.on('roll', function (room) {
@@ -54,7 +55,7 @@ io.on('connection', function(socket){
                     resetPlayer();
                     gm.bank();
                     gm.current_player.potential_score = 0;
-                    if (gm.current_player.banked_score >= 500) {
+                    if (gm.current_player.banked_score >= 5000) {
                         io.sockets.in(room).emit('game won', gm.current_player);
                     }
                     else {
@@ -103,8 +104,14 @@ io.on('connection', function(socket){
                 gm.current_player.round_score = 0;
                 gm.current_player.chosen_dice = [];             
         }
+
+        function disconnect() {
+                log("disconnecting");
+                socket.disconnect();
+        }
         
 });
+
 
 http.listen(3000, function(){
   console.log('listening on *:3000');

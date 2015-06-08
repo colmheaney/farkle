@@ -20,11 +20,9 @@ rollButton.disabled = true;
 bankButton.disabled = true;
 
 // Let's get started: prompt user for input (room name)
-// var room = prompt('Enter room name:');
-var room = "foo";
+var room = prompt('Enter room name:');
 
 // Connect to signalling server
-// var socket = io.connect("http://localhost:8181");
 var socket = io();
 
 // Send 'Create or join' message to singnalling server
@@ -73,8 +71,8 @@ socket.on('log', function (array){
 // Receive message from the other peer via the signalling server 
 socket.on('message', function (message){
     console.log('Received message:', message);
-            if (message === 'bye') {
-            handleRemoteHangup();
+        if (message === 'bye') {
+        handleRemoteHangup();
     }
 });
 
@@ -172,16 +170,12 @@ function changePlayer() {
 
 function hangup() {
     console.log('Hanging up.');
-    stop();
+    disableButtons();
     sendMessage('bye');
 }
 
 function handleRemoteHangup() {
     console.log('Session terminated.');
-    stop();
-    isInitiator = false;
+    disableButtons();
 }
 
-function stop() {
-    sendButton.disabled=true;
-}
