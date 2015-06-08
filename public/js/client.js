@@ -112,7 +112,8 @@ function display_dice(dice) {
 
 $('#diceList').on('click', '.die', function() {
     sendDie($(this).attr("value"));
-    $(this).addClass('diceClicked');
+    if (isActive)
+        $(this).addClass('diceClicked');
 })
 
 // 2. Client-->Server
