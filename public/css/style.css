@@ -37,8 +37,11 @@
 	background-color: #dddddd;
 }
 
-@media screen and (max-width: 600px) {
-	#container: {
+@media (max-width: 600px) {
+	#container {
 		width: 90%;
 	}
+}
+
+
 }
