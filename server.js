@@ -26,7 +26,7 @@ io.on('connection', function(socket){
         socket.on('roll', function (room) {
                 var score_object = gm.calculate_score(gm.current_player, diceSet);
                 resetPlayer();
-                io.sockets.in(room).emit('round score', gm.current_player.potential_score);
+                io.sockets.in(room).emit('throw score', gm.current_player.round_score + gm.current_player.potential_score);
                 gm.current_player.remaining_dice = gm.remaining_dice(score_object.scoring_dice, gm.current_player.remaining_dice);
 
                 diceSet = new DiceSet(gm.current_player.remaining_dice);
@@ -47,7 +47,7 @@ io.on('connection', function(socket){
                     gm.current_player.chosen_dice.push(value);
                 var potential_score = gm.calculate_score(gm.current_player, diceSet);
                 gm.current_player.round_score = potential_score.total;
-                io.sockets.in(room).emit('throw score', gm.current_player.round_score);
+                io.sockets.in(room).emit('throw score', gm.current_player.round_score + gm.current_player.potential_score);
         });
 
         socket.on('bank', function(room) {

@@ -77,10 +77,6 @@ socket.on('rolled', function (dice, players) {
     display_dice(dice);
 });
 
-socket.on('round score', function(score) {
-    $('#roundScore').text(score);
-});
-
 socket.on('throw score', function(score) {
     $('#throwScore').text(score);
 });
