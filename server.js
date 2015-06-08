@@ -25,6 +25,7 @@ io.on('connection', function(socket){
         socket.on('roll', function (room) {
                 var score_object = gm.calculate_score(gm.current_player, diceSet);
                 resetPlayer();
+                io.sockets.in(room).emit('round score', gm.current_player.potential_score);
                 gm.current_player.remaining_dice = gm.remaining_dice(score_object.scoring_dice, gm.current_player.remaining_dice);
 
                 diceSet = new DiceSet(gm.current_player.remaining_dice);
@@ -40,12 +41,12 @@ io.on('connection', function(socket){
                 }
         });
 
-        socket.on('sendDie', function (value) {
+        socket.on('sendDie', function (value, room) {
                 if (gm.current_player.chosen_dice.indexOf(value) == -1)
                     gm.current_player.chosen_dice.push(value);
                 var potential_score = gm.calculate_score(gm.current_player, diceSet);
                 gm.current_player.round_score = potential_score.total;
-                socket.emit('score', potential_score.total, gm.current_player);
+                io.sockets.in(room).emit('throw score', gm.current_player.round_score);
         });
 
         socket.on('bank', function(room) {
@@ -76,12 +77,12 @@ io.on('connection', function(socket){
                         socket.join(room);
                         gm = new Game();
                         diceSet = gm.diceSet;
-                        gm.addPlayer(new Player("Colm", true));
+                        gm.addPlayer(new Player("Player 1", true));
                         socket.emit('created', room);
                 } else if (numClients == 1) {
                 // Second client joining...                	
                         io.sockets.in(room).emit('join', room);
-                        gm.addPlayer(new Player("Paul", false));
+                        gm.addPlayer(new Player("Player 2", false));
                         socket.join(room);
                         socket.emit('joined', room);
                 } else { // max two clients
@@ -90,11 +91,11 @@ io.on('connection', function(socket){
         });       
         
         function log(){
-            var array = [">>> "];
-            for (var i = 0; i < arguments.length; i++) {
-            	array.push(arguments[i]);
-            }
-            socket.emit('log', array);
+                var array = [">>> "];
+                for (var i = 0; i < arguments.length; i++) {
+                	array.push(arguments[i]);
+                }
+                socket.emit('log', array);
         }
 
         function resetPlayer() {

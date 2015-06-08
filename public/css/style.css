@@ -1,0 +1,38 @@
+#container {
+	width: 30%;
+	margin: auto;
+	position: relative;
+}
+#player1Wrapper {
+	float:left;
+}
+#player2Wrapper {
+	float:right;
+}
+#centralWrapper {
+	position: absolute;
+	top: 100px;
+	right: 40%;
+}
+
+#diceList, #centralWrapper, #buttons { 
+	text-align: center; 
+}
+#diceList {
+	padding: 0;
+	list-style-type: none;
+	font-size: 20px;
+}
+#diceList li { 
+	display: inline-block; 
+	width: 20px;
+	cursor: pointer;
+	margin: 2px;
+	border: 1px solid #cccccc;
+}
+#diceList li:active {
+	background-color: #cccccc;
+}
+.diceClicked {
+	background-color: #dddddd;
+}

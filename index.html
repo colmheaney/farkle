@@ -2,21 +2,50 @@
 <html>
 <head>
 
-<title>Greed</title>
+<title>Farkle</title>
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
 
 <body>
 
-<div>
-	<ul id="diceList">
-	</ul>
-</div>
+	<div id="container">
+		<div id="player1Wrapper">
+			<p>Player 1</p>
+			<p>Score:
+				<span id="player1Score">0</span>
+			</p>
+		</div>
 
-<div>
-	<button id="rollButton">Roll</button>
-	<button id="bankButton">Bank</button>
-</div>
+		<div id="player2Wrapper">
+			<p>Player 2</p>
+			<p>Score:
+				<span id="player2Score">0</span>
+			</p>
+		</div>
+
+		<div id="centralWrapper">
+			<p id="roundScoreWrapper">Round Total:
+				<span id="roundScore">0</span>
+			</p>
+			<p id="throwScoreWrapper">Throw Total:
+				<span id="throwScore">0</span>
+			</p>
+
+			<ul id="diceList">
+			</ul>
+
+			<p id="messageWrapper">
+				<span id="message"></span>
+			</p>
+
+			<div id="buttons">
+				<button id="rollButton">Roll</button>
+				<button id="bankButton">Bank</button>
+			</div>
+		</div>
+	</div>
 
 <script src='/socket.io/socket.io.js'></script>
 <script src='js/lib/jquery.js'></script>
