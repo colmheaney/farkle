@@ -70,9 +70,6 @@ io.on('connection', function(socket){
                 var clients = io.sockets.adapter.rooms[room];
                 var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
 
-                log('S --> Room ' + room + ' has ' + numClients + ' client(s)');
-                log('S --> Request to create or join room', room);
-
                 // First client joining...
                 if (numClients == 0){
                         socket.join(room);
@@ -103,11 +100,6 @@ io.on('connection', function(socket){
                 gm.current_player.potential_score += gm.current_player.round_score;
                 gm.current_player.round_score = 0;
                 gm.current_player.chosen_dice = [];             
-        }
-
-        function disconnect() {
-                log("disconnecting");
-                socket.disconnect();
         }
         
 });

@@ -1,5 +1,6 @@
 #container {
 	width: 30%;
+	padding-top: 50px;
 	margin: auto;
 	position: relative;
 }
@@ -10,9 +11,8 @@
 	float:right;
 }
 #centralWrapper {
-	position: absolute;
-	top: 100px;
-	right: 40%;
+	width: 50%;
+	margin: auto;
 }
 
 #diceList, #centralWrapper, #buttons { 
@@ -35,4 +35,10 @@
 }
 .diceClicked {
 	background-color: #dddddd;
+}
+
+@media screen and (max-width: 600px) {
+	#container: {
+		width: 90%;
+	}
 }

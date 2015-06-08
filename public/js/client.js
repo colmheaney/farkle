@@ -3,7 +3,7 @@
 // Clean-up function:
 // collect garbage before unloading browser's window
 window.onbeforeunload = function(e){
-	hangup();
+	reset();
 }
 
 var rollButton = document.getElementById("rollButton");
@@ -70,10 +70,7 @@ socket.on('log', function (array){
 
 // Receive message from the other peer via the signalling server 
 socket.on('message', function (message){
-    console.log('Received message:', message);
-        if (message === 'bye') {
-        handleRemoteHangup();
-    }
+
 });
 
 socket.on('rolled', function (dice, players) {
@@ -165,17 +162,7 @@ function changePlayer() {
     $('#diceList li').remove(); 
 }
 
-/////////////////////////////////////////////////////////
-// Clean-up functions...
-
-function hangup() {
-    console.log('Hanging up.');
-    disableButtons();
-    sendMessage('bye');
-}
-
-function handleRemoteHangup() {
-    console.log('Session terminated.');
-    disableButtons();
+function reset() {
+    sendMessage('bye')
 }
 
