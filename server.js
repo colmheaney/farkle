@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var http = require('http').createServer(app);
+var io = require('socket.io').listen(http);
 
 var Game = require('./farkle').game;
 var Player = require('./farkle').player;
@@ -17,7 +17,6 @@ app.use(express.static('public'));
 
 // Let's start managing connections...
 io.on('connection', function(socket){
-
     	// Handle 'message' messages
         socket.on('message', function (message) {
                 io.emit('message', message);
